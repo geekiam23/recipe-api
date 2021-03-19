@@ -1,5 +1,5 @@
 class Spoonacular
-  attr_accessor :api_key
+  attr_accessor :api_key, :foo
 
   # To test, you would run this in a rails console:
   # Spoonacular.new.random_recipe
@@ -14,12 +14,18 @@ class Spoonacular
     get(endpoint, params)["recipes"].first
   end
 
+  def recipes
+    endpoint = "all"
+    params = {}
+    get(endpoint, params)["recipes"].first
+  end
+
   def base
     "https://api.spoonacular.com/recipes/"
   end
 
   def auth
-    {apiKey: api_key}
+    {apiKey: @api_key}
   end
 
   def get(endpoint, params = {})
