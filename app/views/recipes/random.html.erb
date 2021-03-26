@@ -2,6 +2,19 @@
 <h1>Random Recipe</h1>
 
 <div>
-  <%= @recipe["title"] %> 
+  <h4>
+    <%= @recipe["title"] %> 
+  </h4>
+  <p>
+    <%= @recipe["summary"].html_safe %>
+  </p>
+
+  <%- @recipe["extendedIngredients"].each do |ingredient| %>
+    <p>
+      <%= ingredient["originalName"] %>
+      <%= image_tag(@image_base + ingredient['image']) %>
+    </p>
+  <% end %>
+
 </div>
 
