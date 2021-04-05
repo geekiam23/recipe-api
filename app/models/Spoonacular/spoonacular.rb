@@ -1,5 +1,5 @@
 class Spoonacular
-  attr_accessor :api_key, :foo
+  attr_accessor :api_key
 
   # To test, you would run this in a rails console:
   # Spoonacular.new.random_recipe
@@ -21,7 +21,7 @@ class Spoonacular
   end
 
   def base
-    "https://api.spoonacular.com/recipes/"
+    "https://api.spoonacular.com"
   end
 
   def auth
@@ -34,5 +34,4 @@ class Spoonacular
     resp = Excon.get(url, query: params)
     JSON.parse(resp.body)
   end
-
 end
