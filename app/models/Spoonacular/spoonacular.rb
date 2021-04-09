@@ -8,20 +8,8 @@ class Spoonacular
     @api_key = api_key
   end
 
-  def random_recipe
-    endpoint = "random"
-    params = {}
-    get(endpoint, params)["recipes"].first
-  end
-
-  def recipes
-    endpoint = "all"
-    params = {}
-    get(endpoint, params)["recipes"].first
-  end
-
   def base
-    "https://api.spoonacular.com"
+    "https://api.spoonacular.com/"
   end
 
   def auth
@@ -33,5 +21,11 @@ class Spoonacular
     params = params.merge!(auth)
     resp = Excon.get(url, query: params)
     JSON.parse(resp.body)
+  end
+
+  def search(query)
+    endpoint = 'food/site/search'
+    params = { :query => query }
+    get(endpoint, params)
   end
 end
