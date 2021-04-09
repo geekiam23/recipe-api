@@ -8,40 +8,8 @@ class Spoonacular
     @api_key = api_key
   end
 
-  def random_recipe
-    endpoint = "random"
-    params = {}
-    get(endpoint, params)["recipes"].first
-  end
-
-  def recipe(id)
-    endpoint = id.to_s + '/information'
-    params = { :includeNutrition => false }
-    get(endpoint, params)
-  end
-  
-  def recipes(ids)
-    endpoint = '/informationBulk'
-    params = { :ids => ids.to_s }
-    get(endpoint, params)
-  end
-
-  def similar_recipe(id)
-    endpoint = id.to_s + '/similar'
-    params = { :number => 2 }
-    recipes = get(endpoint, params)
-    recipeIds = recipes.map{|recipe| recipe['id']}
-    recipes(recipeIds.join(','))
-  end
-
-  def extract_recipe(url)
-    endpoint = '/extract'
-    params = { :url => url.to_s }
-    p recipe = get(endpoint, params)
-  end
-
   def base
-    "https://api.spoonacular.com/recipes/"
+    "https://api.spoonacular.com/"
   end
 
   def auth
@@ -55,4 +23,9 @@ class Spoonacular
     JSON.parse(resp.body)
   end
 
+  def search(query)
+    endpoint = 'food/site/search'
+    params = { :query => query }
+    get(endpoint, params)
+  end
 end
