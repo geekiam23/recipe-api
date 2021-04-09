@@ -1,5 +1,5 @@
 class Spoonacular
-  attr_accessor :api_key, :foo
+  attr_accessor :api_key
 
   # To test, you would run this in a rails console:
   # Spoonacular.new.random_recipe
