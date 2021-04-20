@@ -30,36 +30,40 @@
 
       <%# <Tags recipe={recipe} /> %>
 
-      <div class="relative z-10 grid flex-wrap grid-cols-2 px-20 lg:py-3 lg:px-4">
-        <% @recipe.extendedIngredients.each do |i| %>
-        <%= render 'recipes/ingredient', ingredient: i %>
-        <% end %>
-      </div>
-
-      <div class="border-t-4 border-black-100">
-        <% @recipe.analyzedInstructions[0].steps.each do |step| %>
-        <div class="relative z-10 flex px-20 pt-6 lg:px-4">
-          <div class="flex-shrink-0 mr-4">
-            <span class="inline-flex items-center justify-center w-8 h-8 bg-gray-500 rounded-full">
-              <span class="text-lg font-medium leading-none text-white">
-                <%= step.number %>
-              </span>
-            </span>
-          </div>
-          <div>
-            <h2 class="text-lg font-bold"><%= step.step %></h2>
-            <div class="flex flex-wrap">
-              <% step.equipment.each do |ingredient| %>
-              <%= render partial: "recipes/image_description", locals: { data: ingredient, base: @image_equipment_base } %>
-              <% end %>
-              <% step.ingredients.each do |ingredient| %>
-              <%= render partial: "recipes/image_description", locals: { data: ingredient, base: @image_ingredient_base } %>
-              <% end %>
-            </div>
-          </div>
+      <%- unless @recipe['extendedIngredients'].nil? || @recipe.extendedIngredients.empty? %>
+        <div class="relative z-10 grid flex-wrap grid-cols-2 px-20 lg:py-3 lg:px-4">
+          <%- @recipe.extendedIngredients.each do |i| %>
+            <%= render 'recipes/ingredient', ingredient: i %>
+          <% end %>
         </div>
-        <% end %>
-      </div>
+      <% end %>
+
+      <%- unless @recipe['analyzedInstructions'].nil? || @recipe.analyzedInstructions.empty? %>
+        <div class="border-t-4 border-black-100">
+          <%- @recipe.analyzedInstructions[0].steps.each do |step| %>
+            <div class="relative z-10 flex px-20 pt-6 lg:px-4">
+              <div class="flex-shrink-0 mr-4">
+                <span class="inline-flex items-center justify-center w-8 h-8 bg-gray-500 rounded-full">
+                  <span class="text-lg font-medium leading-none text-white">
+                    <%= step.number %>
+                  </span>
+                </span>
+              </div>
+              <div>
+                <h2 class="text-lg font-bold"><%= step.step %></h2>
+                <div class="flex flex-wrap">
+                  <% step.equipment.each do |ingredient| %>
+                  <%= render partial: "recipes/image_description", locals: { data: ingredient, base: @image_equipment_base } %>
+                  <% end %>
+                  <% step.ingredients.each do |ingredient| %>
+                  <%= render partial: "recipes/image_description", locals: { data: ingredient, base: @image_ingredient_base } %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end%>
     </div>
 
     <div class="relative max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:px-0">
