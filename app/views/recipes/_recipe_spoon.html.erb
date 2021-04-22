@@ -1,0 +1,24 @@
+<tr>
+  <td class="max-w-xs px-6 py-4 text-sm font-medium text-gray-900 truncate whitespace-nowrap">
+    <%# TODO: link broken %>  
+    <%= link_to recipe['title'], recipe %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= recipe['summary'] %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= recipe['servings'] %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= recipe['cuisines'].join(', ') unless recipe['cuisines'].blank? %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= recipe['diets'].join(', ') unless recipe['diets'].blank? %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= recipe['dish_types'].join(', ') unless recipe['dish_types'].blank? %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= recipe['occasions'].join(', ') unless recipe['occasions'].blank? %>
+  </td>
+</tr>
