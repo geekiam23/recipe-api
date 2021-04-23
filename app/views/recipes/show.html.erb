@@ -1,0 +1,15 @@
+<h1><%= @recipe.title %></h1>
+
+  <%= link_to "Edit Recipe", edit_recipe_path, class: '' %>
+  <%# TODO: research more info about method %>
+  <%= link_to "Delete Recipe", @recipe, method: :delete, class: '', data: { confirm: 'Are you sure you want to delete this recipe?' } %>
+
+  <div>
+    <div>
+      <p><%= @recipe.summary %></p>
+      <p><%= @recipe.servings %></p>
+    </div>
+    <div>
+      <p><%= @recipe.instructions %></p>
+    </div>
+  </div>

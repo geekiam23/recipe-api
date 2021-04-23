@@ -3,16 +3,16 @@
 
 <div>
   <h4>
-    <%= @recipe["title"] %> 
+    <%= @recipe.title %> 
   </h4>
   <p>
-    <%= @recipe["summary"].html_safe %>
+    <%= @recipe.summary.html_safe %>
   </p>
 
-  <%- @recipe["extendedIngredients"].each do |ingredient| %>
+  <%- @recipe.extendedIngredients.each do |ingredient| %>
     <p>
-      <%= ingredient["originalName"] %>
-      <%= image_tag(@image_base + ingredient['image']) %>
+      <%= ingredient.originalName %>
+      <%= image_tag(@image_base + ingredient.image) %>
     </p>
   <% end %>
 
