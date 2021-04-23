@@ -1,0 +1,9 @@
+ <% if favorite = current_user.favorite_for(recipe) %>
+   <%= link_to [recipe, favorite], class: 'btn btn-danger', method: :delete do %>
+     <i class="glyphicon glyphicon-star-empty"> </i>&nbsp; Unfavorite
+   <% end %>
+ <% else %>
+   <%= link_to [recipe, Favorite.new], class: 'btn btn-primary', method: :post do %>
+     <i class="glyphicon glyphicon-star"> </i>&nbsp; Favorite
+   <% end %>
+ <% end %>

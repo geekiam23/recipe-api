@@ -65,11 +65,18 @@ ocassions = [
   'spring',
   'summer'
 ]
+
+User.create!(
+  email: 't@gmail.com',
+  password: 'password',
+  password_confirmation: 'password',
+  created_at: Faker::Date.between(from: 2.years.ago, to: Date.today)
+)
+
 # Create Users
 10.times do
   email = Faker::Internet.unique.email
-  password = Faker::Lorem.characters(number: 8)
-
+  password = 'password'
   User.create!(
     email: email,
     password: password,
@@ -77,6 +84,8 @@ ocassions = [
     created_at: Faker::Date.between(from: 2.years.ago, to: Date.today)
   )
 end
+
+users = User.all
 
 cuisines.each { |c|
   Cuisine.create!(
@@ -109,7 +118,14 @@ ocassions.each { |o|
     summary: Faker::Hacker.say_something_smart,
     instructions: Faker::Hacker.say_something_smart,
     servings: Faker::Number.unique.between(from: 1, to: 51),
-    user_id: User.ids.sample
+    user_id: users.ids.sample
+  )
+end
+
+25.times do
+  Favorite.create!(
+    user_id: users.ids.sample,
+    recipe_id: Recipe.ids.sample,
   )
 end
 

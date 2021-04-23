@@ -12,4 +12,7 @@
     <div>
       <p><%= @recipe.instructions %></p>
     </div>
+    <% if current_user %>
+      <%= render partial: 'favorites/favorite', locals: { recipe: @recipe } %>
+    <% end %>
   </div>
