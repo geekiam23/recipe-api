@@ -54,13 +54,19 @@ class RecipesController < ApplicationController
   end
 
   def random
-    @recipe = Spoonacular::Recipe.new.random.to_dot
+    @recipes = Spoonacular::Recipe.new.random(recipe_random_params)
     @image_ingredient_base = "https://spoonacular.com/cdn/ingredients_100x100/"
     @image_equipment_base = "https://spoonacular.com/cdn/equipment_100x100/"
-    # puts JSON.pretty_generate @recipe
+
+    #TODO: refactor.
+    render 'recipes/index_spoon', object: @recipes
   end
 
   private
+
+  def recipe_random_params
+    params.require(:random).permit(:number, tags: [])
+  end
 
   def recipe_params
     params.require(:recipe).permit(:title, :summary, :servings, :instructions, cuisine_ids: [], diet_ids: [], dish_type_ids: [], occasion_ids: [] )

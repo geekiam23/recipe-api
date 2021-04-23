@@ -34,10 +34,10 @@ module Spoonacular
       get(endpoint, params)
     end
 
-    def random
+    def random(params)
       endpoint = "random"
-      params = {}
-      get(endpoint, params)["recipes"].first
+      params = { :tags => params['tags'].reject(&:empty?), :number => params['number'] }
+      get(endpoint, params)["recipes"]
     end
     
     def similar(id)
