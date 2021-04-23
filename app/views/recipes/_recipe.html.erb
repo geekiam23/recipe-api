@@ -9,5 +9,17 @@
     <small>
       <%= recipe.servings %>
     </small>
+    <h1  class='text-green-700'>
+      <%= recipe.cuisines.map(&:name).join(', ') %>
+    </h1>
+    <h1 class='text-blue-700'>
+      <%= recipe.dish_types.map(&:name).join(', ') %>
+    </h1>
+    <h1 class='text-red-700'>
+      <%= recipe.diets.map(&:name).join(', ') %>
+    </h1>
+    <h1 class='text-green-700'>
+      <%= recipe.occasions.map(&:name).join(', ') %>
+    </h1>
   </div>
 </div>

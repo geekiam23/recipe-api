@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_12_200416) do
+ActiveRecord::Schema.define(version: 2021_04_13_143138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,51 @@ ActiveRecord::Schema.define(version: 2021_04_12_200416) do
   end
 
   create_table "cuisines", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "diet_recipes", force: :cascade do |t|
+    t.bigint "diet_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["diet_id"], name: "index_diet_recipes_on_diet_id"
+    t.index ["recipe_id"], name: "index_diet_recipes_on_recipe_id"
+  end
+
+  create_table "diets", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "dish_type_recipes", force: :cascade do |t|
+    t.bigint "dish_type_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dish_type_id"], name: "index_dish_type_recipes_on_dish_type_id"
+    t.index ["recipe_id"], name: "index_dish_type_recipes_on_recipe_id"
+  end
+
+  create_table "dish_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "occasion_recipes", force: :cascade do |t|
+    t.bigint "occasion_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["occasion_id"], name: "index_occasion_recipes_on_occasion_id"
+    t.index ["recipe_id"], name: "index_occasion_recipes_on_recipe_id"
+  end
+
+  create_table "occasions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -54,4 +99,10 @@ ActiveRecord::Schema.define(version: 2021_04_12_200416) do
 
   add_foreign_key "cuisine_recipes", "cuisines"
   add_foreign_key "cuisine_recipes", "recipes"
+  add_foreign_key "diet_recipes", "diets"
+  add_foreign_key "diet_recipes", "recipes"
+  add_foreign_key "dish_type_recipes", "dish_types"
+  add_foreign_key "dish_type_recipes", "recipes"
+  add_foreign_key "occasion_recipes", "occasions"
+  add_foreign_key "occasion_recipes", "recipes"
 end
