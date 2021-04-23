@@ -1,28 +1,23 @@
-<div>
-  <div>
-    <h4>
-      <%= link_to recipe.title, recipe %>
-    </h4>
-    <small>
-      <%= recipe.summary %>
-    </small>
-    <small>
-      <%= recipe.servings %>
-    </small>
-    <h1  class='text-green-700'>
-      <%= recipe.cuisines.map(&:name).join(', ') %>
-    </h1>
-    <h1 class='text-blue-700'>
-      <%= recipe.dish_types.map(&:name).join(', ') %>
-    </h1>
-    <h1 class='text-red-700'>
-      <%= recipe.diets.map(&:name).join(', ') %>
-    </h1>
-    <h1 class='text-green-700'>
-      <%= recipe.occasions.map(&:name).join(', ') %>
-    </h1>
-    <h1 class='text-green-700'>
-      <%= recipe.vegan %>
-    </h1>
-  </div>
-</div>
+<tr>
+  <td class="max-w-xs px-6 py-4 text-sm font-medium text-gray-900 truncate whitespace-nowrap">
+    <%= link_to recipe.title, recipe %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= recipe.summary %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= recipe.servings %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= capitalize_join_text(recipe.cuisines) %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= capitalize_join_text(recipe.diets) %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= capitalize_join_text(recipe.dish_types) %>
+  </td>
+  <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
+    <%= capitalize_join_text(recipe.occasions) %>
+  </td>
+</tr>

@@ -1,14 +1,16 @@
 class RecipesController < ApplicationController
+  before_action :require_sign_in, except: [:index, :show]
+
   def index
     @recipes = Recipe.all
   end
 
   def new
-    @recipe = Recipe.new
+    @recipe = current_user.recipes.build
   end
 
   def create
-    @recipe = Recipe.new(recipe_params)
+    @recipe = current_user.recipes.build(recipe_params)
 
     if @recipe.save
       redirect_to @recipe, notice: "Recipe was saved successfully."
@@ -53,7 +55,9 @@ class RecipesController < ApplicationController
 
   def random
     @recipe = Spoonacular::Recipe.new.random.to_dot
-    @image_base = "https://spoonacular.com/cdn/ingredients_100x100/"
+    @image_ingredient_base = "https://spoonacular.com/cdn/ingredients_100x100/"
+    @image_equipment_base = "https://spoonacular.com/cdn/equipment_100x100/"
+    # puts JSON.pretty_generate @recipe
   end
 
   private

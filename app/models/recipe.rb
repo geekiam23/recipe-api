@@ -13,6 +13,8 @@ class Recipe < ApplicationRecord
   has_many :occasion_recipes
   has_many :occasions, through: :occasion_recipes
   
+  has_many :favorites, dependent: :destroy
+  
   def dairy_free
     diet_included('diary free')
   end

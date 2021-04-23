@@ -1,0 +1,13 @@
+<div class="flex items-center mb-5 mr-5">
+  <div>
+    <%= image_tag (@image_ingredient_base + ingredient['image']), class:"inline-block bg-white rounded-full h-9 w-9" %>
+  </div>
+  <div class="ml-3">
+    <p class="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+      <%= ingredient['original'] %>
+    </p>
+    <p class="text-xs font-medium text-gray-500 group-hover:text-gray-700">
+      <%= ingredient['aisle'] %>
+    </p>
+  </div>
+</div>

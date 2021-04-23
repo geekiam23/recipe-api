@@ -1,0 +1,23 @@
+ <div class="relative z-10 flex justify-around px-20 py-10 lg:py-3 lg:px-4">
+  <% if @recipe['dairyFree'] %>
+    <span class="text-gray-800 bg-pink-100 tag">Diary Free</span>
+  <% end %>
+  <% if @recipe['cheap'] %>
+    <span class="text-red-800 bg-red-100 tag">Cheap</span>
+  <% end %>
+  <% if @recipe['vegan'] %>
+    <span class="text-yellow-800 bg-yellow-100 tag">Vegan</span>
+  <% end %>
+  <% if @recipe['veryPopular'] %>
+    <span class="text-green-800 bg-green-100 tag">Very Popular</span>
+  <% end %>
+  <% if @recipe['veryHealthy'] %>
+    <span class="text-blue-800 bg-blue-100 tag">Very Healthy</span>
+  <% end %>
+  <% if @recipe['sustainable'] %>
+    <span class="text-indigo-800 bg-indigo-100 tag">Sustainable</span>
+  <% end %>
+  <% if @recipe['glutenFree'] %>
+    <span class="text-indigo-800 bg-indigo-100 tag">Gluten Free</span>
+  <% end %>
+</div>

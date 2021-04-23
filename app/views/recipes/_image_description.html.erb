@@ -1,0 +1,12 @@
+<div class="flex mt-6 mr-5">
+  <div class="flex items-center">
+    <div>
+      <%= image_tag (base + data['image']), class: "inline-block bg-white h-9 w-9 rounded-full", alt: "image of ingredient or tool" %>
+    </div>
+    <div class="ml-3">
+      <p class="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+        <%= data['name'] %>
+      </p>
+    </div>
+  </div>
+</div>

@@ -12,7 +12,7 @@ default: &default
 
 development:
   <<: *default
-  database: recipe_app_developmet
+  database: recipe_app_development
 
 test:
   <<: *default
