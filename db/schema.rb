@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_021105) do
+ActiveRecord::Schema.define(version: 2021_04_12_200416) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "cuisine_recipes", force: :cascade do |t|
+    t.bigint "cuisine_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cuisine_id"], name: "index_cuisine_recipes_on_cuisine_id"
+    t.index ["recipe_id"], name: "index_cuisine_recipes_on_recipe_id"
+  end
+
+  create_table "cuisines", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "recipes", force: :cascade do |t|
     t.string "title"
@@ -19,6 +37,7 @@ ActiveRecord::Schema.define(version: 2021_04_10_021105) do
     t.text "instructions"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -33,4 +52,6 @@ ActiveRecord::Schema.define(version: 2021_04_10_021105) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cuisine_recipes", "cuisines"
+  add_foreign_key "cuisine_recipes", "recipes"
 end

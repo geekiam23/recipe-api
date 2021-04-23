@@ -2,9 +2,9 @@
 
 <div>
     <div>
-      <%= render partial: 'recipe', collection: @recipes %>
+      <%= render @recipes %>
     </div>
     <div>
-        <%= link_to "New Recipe", new_recipe_path, class: '' %>
+      <%= link_to "New Recipe", new_recipe_path, class: '' %>
     </div>
 </div>
