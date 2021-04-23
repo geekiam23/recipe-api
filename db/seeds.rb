@@ -1,5 +1,70 @@
 require 'faker'
 
+cuisines = [
+  'african',
+  'american',
+  'british',
+  'cajun',
+  'caribbean',
+  'chinese',
+  'eastern european',
+  'european',
+  'french',
+  'german',
+  'greek',
+  'indian',
+  'irish',
+  'italian',
+  'japanese',
+  'jewish',
+  'korean',
+  'latin american',
+  'mediterranean',
+  'mexican',
+  'middle eastern',
+  'nordic',
+  'southern',
+  'spanish',
+  'thai',
+  'vietnamese'
+]
+
+diets = [
+  'gluten free',
+  'ketogenic',
+  'vegetarian',
+  'lacto-vegertarian',
+  'ovo-vegetarian',
+  'vegan',
+  'pescetarian',
+  'paleo',
+  'primal',
+  'whole30'
+]
+
+dish_types = [
+  'main course',
+  'side dish',
+  'dessert',
+  'appetizer',
+  'salad',
+  'bread',
+  'breakfast',
+  'soup',
+  'beverage',
+  'sauce',
+  'marinade',
+  'fingerfood',
+  'snack',
+  'drink',
+]
+
+ocassions = [
+  'fall',
+  'winter',
+  'spring',
+  'summer'
+]
 # Create Users
 10.times do
   email = Faker::Internet.unique.email
@@ -13,29 +78,29 @@ require 'faker'
   )
 end
 
-10.times do
+cuisines.each { |c|
   Cuisine.create!(
-    name: Faker::Food.dish
+    name: c
   )
-end
+}
 
-10.times do
+dish_types.each { |d| 
   DishType.create!(
-    name: Faker::Food.dish
+    name: d
   )
-end
+}
 
-10.times do
+diets.each { |d|
   Diet.create!(
-    name: Faker::Food.dish
+    name: d
   )
-end
+}
 
-10.times do
+ocassions.each { |o|
   Occasion.create!(
-    name: Faker::Food.dish
+    name: o
   )
-end
+}
 
 # Create Recipes
 50.times do
