@@ -2,7 +2,11 @@ class RecipesController < ApplicationController
   before_action :require_sign_in, except: [:index, :show]
 
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.includes(:cuisines, :diets, :dish_types, :occasions)
+  end
+  
+  def search
+    @recipes = Recipe.includes(:cuisines, :diets, :dish_types, :occasions).search(params[:search])
   end
 
   def new

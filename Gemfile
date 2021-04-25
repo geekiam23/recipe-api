@@ -19,6 +19,8 @@ gem 'devise'
 gem 'pg'
 gem 'hash_dot'
 gem 'faker'
+gem 'pg_search'
+gem 'rack-mini-profiler', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
