@@ -114,8 +114,8 @@ ocassions.each { |o|
 # Create Recipes
 50.times do
   Recipe.create!(
-    title: Faker::Movies::HarryPotter.quote,
-    summary: Faker::Hacker.say_something_smart,
+    title: Faker::Food.dish,
+    summary: Faker::Food.description,
     instructions: Faker::Hacker.say_something_smart,
     servings: Faker::Number.unique.between(from: 1, to: 51),
     user_id: users.ids.sample
