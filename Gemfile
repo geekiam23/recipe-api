@@ -19,6 +19,7 @@ gem 'devise'
 gem 'pg'
 gem 'hash_dot'
 gem 'faker'
+gem 'pg_search'
 gem 'rack-mini-profiler', require: false
 
 group :development, :test do

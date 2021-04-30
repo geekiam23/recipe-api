@@ -1,4 +1,20 @@
 class Recipe < ApplicationRecord
+  include PgSearch::Model
+  pg_search_scope :search,
+   against: {
+    title: 'A',
+    summary: 'B'
+   },
+   using: {
+    tsearch: { prefix: true }
+   },
+   associated_against: {
+    cuisines: :name,
+    dish_types: :name,
+    diets: :name,
+    occasions: :name,
+  }
+
   belongs_to :user
 
   has_many :cuisine_recipes, dependent: :destroy

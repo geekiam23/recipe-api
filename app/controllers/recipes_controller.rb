@@ -4,6 +4,9 @@ class RecipesController < ApplicationController
   def index
     @recipes = Recipe.includes(:cuisines, :diets, :dish_types, :occasions)
   end
+  
+  def search
+    @recipes = Recipe.includes(:cuisines, :diets, :dish_types, :occasions).search(params[:search])
   end
 
   def new
