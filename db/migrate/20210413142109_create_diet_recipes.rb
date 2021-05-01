@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDietRecipes < ActiveRecord::Migration[6.0]
   def change
     create_table :diet_recipes do |t|

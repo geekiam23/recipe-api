@@ -1,56 +1,55 @@
+# frozen_string_literal: true
+
 module Spoonacular
   class Recipe < Base
     def base_url
-      super + "/recipes/"
+      "#{super}/recipes/"
     end
 
-    def find(params)
-      endpoint = "/complexSearch"
-      params = { }
-      get(endpoint, params)
-    end
-    
-    def find_ingredient(params)
-      endpoint = '/findByIngredients'
-      params = { }
+    def find(params = )
+      endpoint = '/complexSearch'
       get(endpoint, params)
     end
 
-    def find_nutrient(params)
+    def find_ingredient(params = {})
       endpoint = '/findByIngredients'
-      params = { }
+      get(endpoint, params)
+    end
+
+    def find_nutrient(params = {})
+      endpoint = '/findByIngredients'
       get(endpoint, params)
     end
 
     def info(id)
-      endpoint = id.to_s + '/information'
-      params = { :includeNutrition => false }
+      endpoint = "#{id}/information"
+      params = { includeNutrition: false }
       get(endpoint, params)
     end
 
     def extract(url)
       endpoint = '/extract'
-      params = { :url => url.to_s }
+      params = { url: url.to_s }
       get(endpoint, params)
     end
 
     def random(params)
-      endpoint = "random"
-      params = { :tags => params['tags'].reject(&:empty?), :number => params['number'] }
-      get(endpoint, params)["recipes"]
+      endpoint = 'random'
+      params = { tags: params['tags'].reject(&:empty?), number: params['number'] }
+      get(endpoint, params)['recipes']
     end
-    
+
     def similar(id)
-      endpoint = id.to_s + '/similar'
-      params = { :number => 2 }
+      endpoint = "#{id}/similar"
+      params = { number: 2 }
       recipes = get(endpoint, params)
-      recipeIds = recipes.map{|recipe| recipe['id']}
-      recipes(recipeIds.join(','))
+      recipe_ids = recipes.map { |recipe| recipe['id'] }
+      recipes(recipe_ids.join(','))
     end
-    
+
     def info_bulk(ids)
       endpoint = '/informationBulk'
-      params = { :ids => ids.to_s }
+      params = { ids: ids.to_s }
       get(endpoint, params)
     end
   end

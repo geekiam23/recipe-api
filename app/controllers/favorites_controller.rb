@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FavoritesController < ApplicationController
   before_action :require_sign_in
 
@@ -6,9 +8,9 @@ class FavoritesController < ApplicationController
     favorite = current_user.favorites.build(recipe: recipe)
 
     if favorite.save
-      flash[:notice] = "Recipe favorited."
+      flash[:notice] = 'Recipe favorited.'
     else
-      flash[:alert] = "Favoriting failed."
+      flash[:alert] = 'Favoriting failed.'
     end
 
     redirect_to recipe
@@ -18,11 +20,11 @@ class FavoritesController < ApplicationController
     recipe = Recipe.find(params[:recipe_id])
     favorite = current_user.favorites.find_by(id: params[:id])
 
-    if favorite && favorite.destroy
-      flash[:notice] = "Recipe unfavorited."
+    if favorite&.destroy
+      flash[:notice] = 'Recipe unfavorited.'
     else
-      flash[:alert] = "Unfavoriting failed."
+      flash[:alert] = 'Unfavoriting failed.'
     end
-      redirect_to recipe
+    redirect_to recipe
   end
 end

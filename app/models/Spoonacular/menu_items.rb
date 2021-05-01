@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Spoonacular
   class MenuItems < Base
     def base_url
-      super + "food/menuItems/"
+      "#{super}food/menuItems/"
     end
 
     def info(id)
@@ -11,8 +13,8 @@ module Spoonacular
     end
 
     def find(query, number = 10)
-      endpoint = "/search"
-      params = {:query => query, :number => number}
+      endpoint = '/search'
+      params = { query: query, number: number }
       get(endpoint, params)
     end
   end
