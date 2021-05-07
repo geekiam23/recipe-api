@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_07_144701) do
+ActiveRecord::Schema.define(version: 2021_05_07_192133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 2021_05_07_144701) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "analyzed_instructions", force: :cascade do |t|
+    t.bigint "step_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["step_id"], name: "index_analyzed_instructions_on_step_id"
   end
 
   create_table "cuisine_recipes", force: :cascade do |t|
@@ -76,6 +83,12 @@ ActiveRecord::Schema.define(version: 2021_05_07_144701) do
   end
 
   create_table "dish_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "equipment", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -131,6 +144,17 @@ ActiveRecord::Schema.define(version: 2021_05_07_144701) do
     t.integer "user_id"
   end
 
+  create_table "steps", force: :cascade do |t|
+    t.string "description"
+    t.integer "number"
+    t.bigint "ingredient_id", null: false
+    t.bigint "equipment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["equipment_id"], name: "index_steps_on_equipment_id"
+    t.index ["ingredient_id"], name: "index_steps_on_ingredient_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -144,6 +168,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_144701) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "analyzed_instructions", "steps"
   add_foreign_key "cuisine_recipes", "cuisines"
   add_foreign_key "cuisine_recipes", "recipes"
   add_foreign_key "diet_recipes", "diets"
@@ -154,4 +179,6 @@ ActiveRecord::Schema.define(version: 2021_05_07_144701) do
   add_foreign_key "favorites", "users"
   add_foreign_key "occasion_recipes", "occasions"
   add_foreign_key "occasion_recipes", "recipes"
+  add_foreign_key "steps", "equipment"
+  add_foreign_key "steps", "ingredients"
 end
