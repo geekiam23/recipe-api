@@ -18,6 +18,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'excon'
 gem 'faker'
+gem 'graphql'
 gem 'hash_dot'
 gem 'pg'
 gem 'pg_search'
@@ -28,6 +29,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-rails'
+  gem 'graphiql-rails'
   gem 'rubocop', '~> 1.13', require: false
   gem 'rubocop-rails', require: false
 end
@@ -46,3 +48,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+
+gem 'graphiql-rails', group: :development

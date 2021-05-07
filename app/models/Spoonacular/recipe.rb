@@ -6,7 +6,7 @@ module Spoonacular
       "#{super}/recipes/"
     end
 
-    def find(params = )
+    def find(params = {})
       endpoint = '/complexSearch'
       get(endpoint, params)
     end
@@ -34,8 +34,10 @@ module Spoonacular
     end
 
     def random(params)
+      tags = params[:tags].reject(&:empty?) if !params[:tags].nil?
+      number = params[:number] if !params[:number].nil?
       endpoint = 'random'
-      params = { tags: params['tags'].reject(&:empty?), number: params['number'] }
+      params = { tags: tags.to_s, number: number }
       get(endpoint, params)['recipes']
     end
 

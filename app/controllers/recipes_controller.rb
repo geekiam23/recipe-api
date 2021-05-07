@@ -60,7 +60,7 @@ class RecipesController < ApplicationController
   end
 
   def random
-    @recipes = Spoonacular::Recipe.new.random(recipe_random_params)
+    @recipes = Spoonacular::Recipe.new.random(recipe_random_params).to_dot
     @image_ingredient_base = 'https://spoonacular.com/cdn/ingredients_100x100/'
     @image_equipment_base = 'https://spoonacular.com/cdn/equipment_100x100/'
 
