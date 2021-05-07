@@ -71,11 +71,11 @@ class RecipesController < ApplicationController
   private
 
   def recipe_random_params
-    params.require(:random).permit(:number, :image, tags: [])
+    params.require(:random).permit(:number, tags: [])
   end
 
   def recipe_params
-    params.require(:recipe).permit(:title, :summary, :servings, :instructions, cuisine_ids: [], diet_ids: [],
-                                                                               dish_type_ids: [], occasion_ids: [])
+    params.require(:recipe).permit(:title, :image, :summary, :servings, :instructions, cuisine_ids: [], diet_ids: [],
+                                                                        dish_type_ids: [], occasion_ids: [])
   end
 end

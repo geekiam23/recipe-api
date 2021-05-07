@@ -68,15 +68,15 @@ class Recipe < ApplicationRecord
   end
 
   def acceptable_image
-    return unless main_image.attached?
+    return unless image.attached?
   
-    unless main_image.byte_size <= 1.megabyte
-      errors.add(:main_image, "is too big")
+    unless image.byte_size <= 1.megabyte
+      errors.add(:image, "is too big")
     end
   
     acceptable_types = ["image/jpeg", "image/png"]
-    unless acceptable_types.include?(main_image.content_type)
-      errors.add(:main_image, "must be a JPEG or PNG")
+    unless acceptable_types.include?(image.content_type)
+      errors.add(:image, "must be a JPEG or PNG")
     end
   end
 end

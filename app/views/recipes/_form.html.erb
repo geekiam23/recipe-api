@@ -37,6 +37,14 @@
         </div>
       </div>
 
+      <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:pt-5">
+        <%= f.label :image, class: 'block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2' %>
+        <div class="mt-1 sm:mt-0 sm:col-span-2">
+          <img <%= image_tag @recipe.image.variant(resize_to_limit: [150, 150]) %>
+          <%= f.file_field :image %>
+        </div>
+      </div>
+
       <div class="mt-6 space-y-6 sm:mt-5 sm:space-y-5">
         <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
           <%= f.label :instructions, class: 'block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2' %>
