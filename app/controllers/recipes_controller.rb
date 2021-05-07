@@ -71,7 +71,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_random_params
-    params.require(:random).permit(:number, tags: [])
+    params.require(:random).permit(:number, :image, tags: [])
   end
 
   def recipe_params
