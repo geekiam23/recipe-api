@@ -15,7 +15,6 @@ class RecipesController < ApplicationController
   end
 
   # add spoon to search feature
-  # add conditional to index above load from db or spoon
 
   def new
     @recipe = current_user.recipes.build

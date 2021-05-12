@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   root to: 'recipes#index'
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql#execute"
-  end
+  # if Rails.env.development?
+    # mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql#execute"
+  # end
 end
