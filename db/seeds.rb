@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faker'
 
 cuisines = [
@@ -56,14 +58,14 @@ dish_types = [
   'marinade',
   'fingerfood',
   'snack',
-  'drink',
+  'drink'
 ]
 
-ocassions = [
-  'fall',
-  'winter',
-  'spring',
-  'summer'
+ocassions = %w[
+  fall
+  winter
+  spring
+  summer
 ]
 
 User.create!(
@@ -87,29 +89,29 @@ end
 
 users = User.all
 
-cuisines.each { |c|
+cuisines.each do |c|
   Cuisine.create!(
     name: c
   )
-}
+end
 
-dish_types.each { |d| 
+dish_types.each do |d|
   DishType.create!(
     name: d
   )
-}
+end
 
-diets.each { |d|
+diets.each do |d|
   Diet.create!(
     name: d
   )
-}
+end
 
-ocassions.each { |o|
+ocassions.each do |o|
   Occasion.create!(
     name: o
   )
-}
+end
 
 # Create Recipes
 50.times do
@@ -135,32 +137,32 @@ end
 50.times do
   CuisineRecipe.create!(
     cuisine_id: Cuisine.ids.sample,
-    recipe_id: Recipe.ids.sample,
+    recipe_id: Recipe.ids.sample
   )
 end
 
 50.times do
   DishTypeRecipe.create!(
     dish_type_id: DishType.ids.sample,
-    recipe_id: Recipe.ids.sample,
+    recipe_id: Recipe.ids.sample
   )
 end
 
 50.times do
   DietRecipe.create!(
     diet_id: Diet.ids.sample,
-    recipe_id: Recipe.ids.sample,
+    recipe_id: Recipe.ids.sample
   )
 end
 
 50.times do
   OccasionRecipe.create!(
     occasion_id: Occasion.ids.sample,
-    recipe_id: Recipe.ids.sample,
+    recipe_id: Recipe.ids.sample
   )
 end
 
-puts "Seed finished"
+puts 'Seed finished'
 puts "#{User.count} users created"
 puts "#{Cuisine.count} cuisines created"
 puts "#{DishType.count} dish types created"

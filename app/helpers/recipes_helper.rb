@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RecipesHelper
   def capitalize_join_text(data)
     if data && data.name

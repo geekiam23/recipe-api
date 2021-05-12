@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Spoonacular
   class Base
     attr_accessor :api_key
@@ -10,23 +12,23 @@ module Spoonacular
     end
 
     def base_url
-      "https://api.spoonacular.com/"
+      'https://api.spoonacular.com/'
     end
 
     def auth
-      {apiKey: @api_key}
+      { apiKey: @api_key }
     end
 
     def get(endpoint, params = {})
       url = base_url + endpoint
-      params = params.merge!(auth)
+      params.merge!(auth)
       resp = Excon.get(url, query: params)
       JSON.parse(resp.body)
     end
 
     def search(query)
       endpoint = 'food/site/search'
-      params = { :query => query }
+      params = { query: query }
       get(endpoint, params)
     end
   end
