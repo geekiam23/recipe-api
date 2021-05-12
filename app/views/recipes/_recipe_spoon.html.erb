@@ -1,7 +1,6 @@
 <tr>
   <td class="max-w-xs px-6 py-4 text-sm font-medium text-gray-900 truncate whitespace-nowrap">
-    <%# TODO: link broken %>  
-    <%= link_to recipe['title'], recipe %>
+    <%= link_to recipe['title'], recipes_random_show_path(id:recipe['id']) %>
   </td>
   <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
     <%= recipe['summary'] %>

@@ -34,9 +34,11 @@ module Spoonacular
       get(endpoint, params)
     end
 
-    def random(params)
+    def random(params = {})
+      tags = params['tags'].reject(&:empty?) if params['tags'] 
+      number = params['number']
       endpoint = "random"
-      params = { :tags => params['tags'].reject(&:empty?), :number => params['number'] }
+      params = { :tags => tags, :number => number }
       get(endpoint, params)["recipes"]
     end
     

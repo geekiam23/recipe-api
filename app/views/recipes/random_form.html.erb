@@ -1,6 +1,6 @@
 <%= form_with url: recipes_random_path, local: true, method: :post do %>
   <%= label_tag "number" %>
-  <%= number_field_tag "random[number]", nil %>
+  <%= number_field_tag "random[number]", '1' %>
   <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
     <%= label_tag 'cuisines', nil, class: 'block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2' %>
     <div class="block py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">

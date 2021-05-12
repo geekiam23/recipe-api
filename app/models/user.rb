@@ -6,6 +6,6 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   
   def favorite_for(recipe)
-    favorites.find_by(recipe_id: recipe.id)
+    favorites.find_by(favoritable_id: recipe.id)
   end  
 end

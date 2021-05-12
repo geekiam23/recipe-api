@@ -1,10 +1,6 @@
- <% if favorite = current_user.favorite_for(recipe) %>
-  <%= link_to [recipe, favorite], class: 'inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500', method: :delete do %>
-    Unfavorite
-  <% end %>
- <% else %>
-    <%# TODO: look into refactoring. info from PR 'add ability to add dish types' %>
-    <%= link_to [recipe, Favorite.new], class: 'inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500', method: :post do %>
-      Favorite
-    <% end %>
- <% end %>
+<%- unless current_user.favorite_for(recipe) -%>
+  <%= link_to 'Favorite', recipes_favorites_path(recipe_id: @recipe.id), local: true, class: 'inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500', method: :post %>
+<%- else -%>
+  <%= link_to 'Unfavorite', recipes_favorite_path(@recipe.id), class: 'inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500', method: :delete %>
+<%- end -%>
+

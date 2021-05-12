@@ -122,10 +122,13 @@ ocassions.each { |o|
   )
 end
 
-25.times do
+recipe_ids = recipes.map { |r| r['id']}
+
+10.times do 
   Favorite.create!(
-    user_id: users.ids.sample,
-    recipe_id: Recipe.ids.sample,
+    user_id: 1,
+    favoritable_type: Spoonacular::Recipe,
+    favoritable_id: recipe_ids.sample
   )
 end
 

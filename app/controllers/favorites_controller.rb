@@ -2,27 +2,28 @@ class FavoritesController < ApplicationController
   before_action :require_sign_in
 
   def create
-    recipe = Recipe.find(params[:recipe_id])
-    favorite = current_user.favorites.build(recipe: recipe)
+    @recipe = Recipe.find_by(id: params[:recipe_id]) ||
+    @recipe = Spoonacular::Recipe.new.info(params[:recipe_id]).to_dot
 
-    if favorite.save
+    if Favorite.create(favoritable_id: @recipe.id, user: current_user)
       flash[:notice] = "Recipe favorited."
     else
       flash[:alert] = "Favoriting failed."
     end
 
-    redirect_to recipe
+    redirect_to @recipe
   end
 
   def destroy
-    recipe = Recipe.find(params[:recipe_id])
-    favorite = current_user.favorites.find_by(id: params[:id])
+    @recipe = Recipe.find(params[:recipe_id])
+    @favorite = current_user.favorites.find_by(favoritable_id: params[:recipe_id])
 
-    if favorite && favorite.destroy
+    if @favorite.destroy
       flash[:notice] = "Recipe unfavorited."
     else
       flash[:alert] = "Unfavoriting failed."
     end
-      redirect_to recipe
+    
+    redirect_to @recipe
   end
 end
