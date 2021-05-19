@@ -4,14 +4,14 @@ class CreateIngredients < ActiveRecord::Migration[6.0]
       t.string :aisle
       t.string :consistency
       t.string :name
-      t.string :nameClean
+      t.string :name_clean
       t.string :original
-      t.string :originalString
-      t.string :originalClean
+      t.string :original_string
+      t.string :original_clean
       t.integer :amount
       t.string :unit
       t.text :meta, array: true, default: []
-      t.text :metaInformation, array: true, default: []
+      t.text :meta_information, array: true, default: []
 
       t.timestamps
     end
