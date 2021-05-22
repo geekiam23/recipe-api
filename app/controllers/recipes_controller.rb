@@ -5,9 +5,8 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.includes(:cuisines, :diets, :dish_types, :occasions).where(user_id: current_user.id)
-
-    # db_recipes_ids = current_user.favorites.where(favoritable_type: 'Recipe').pluck(:favoritable_id)
-    # @recipes = Recipe.where(id: db_recipes_ids)
+    # TODO: Refactor to include favs instead of just created
+    # @recipes = current_user.favorites.where(favoritable_type: "Recipe").includes(:cuisines, :diets, :dish_types, :occasions)
   end
 
   def search
@@ -67,7 +66,7 @@ class RecipesController < ApplicationController
   end
 
   def random
-    @recipes = Spoonacular::Recipe.new.random(recipe_random_params).to_dot
+    @recipes = Spoonacular::Recipe.new.random(recipe_random_params).map{|s| s.to_dot }
     @image_ingredient_base = 'https://spoonacular.com/cdn/ingredients_100x100/'
     @image_equipment_base = 'https://spoonacular.com/cdn/equipment_100x100/'
 

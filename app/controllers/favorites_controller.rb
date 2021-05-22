@@ -4,14 +4,8 @@ class FavoritesController < ApplicationController
   before_action :require_sign_in
 
   def create
-    @recipe = Recipe.find_by(id: params[:recipe_id]) ||
-    @recipe = Spoonacular::Recipe.new.info(params[:recipe_id]).to_dot
-
-    if Favorite.create(favoritable_id: @recipe.id, user: current_user)
-      flash[:notice] = "Recipe favorited."
-    else
-      flash[:alert] = 'Favoriting failed.'
-    end
+    @recipe = current_user.create_favorite_for(params[:recipe_id])
+    flash[:notice] = "Recipe favorited."
 
     redirect_to @recipe
   end

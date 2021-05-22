@@ -69,7 +69,7 @@ ocassions = %w[
 ]
 
 User.create!(
-  email: 't@gmail.com',
+  email: 'test@gmail.com',
   password: 'password',
   password_confirmation: 'password',
   created_at: Faker::Date.between(from: 2.years.ago, to: Date.today)
@@ -124,12 +124,12 @@ end
   )
 end
 
-recipe_ids = recipes.map { |r| r['id']}
+recipe_ids = Recipe.all.map { |r| r['id']}
 
 10.times do 
   Favorite.create!(
     user_id: 1,
-    favoritable_type: Spoonacular::Recipe,
+    favoritable_type: Recipe,
     favoritable_id: recipe_ids.sample
   )
 end
@@ -168,4 +168,5 @@ puts "#{Cuisine.count} cuisines created"
 puts "#{DishType.count} dish types created"
 puts "#{Diet.count} diets created"
 puts "#{Occasion.count} occasions created"
+puts "#{Favorite.count} favorites created"
 puts "#{Recipe.count} recipes created"

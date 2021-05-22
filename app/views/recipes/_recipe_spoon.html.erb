@@ -1,6 +1,6 @@
 <tr>
   <td class="max-w-xs px-6 py-4 text-sm font-medium text-gray-900 truncate whitespace-nowrap">
-    <%= link_to recipe['title'], recipes_random_show_path(id:recipe['id']) %>
+    <%= link_to recipe['title'], recipes_random_show_path(id: recipe['id'].to_i) %>
   </td>
   <td class="max-w-xs px-6 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
     <%= recipe['summary'] %>
