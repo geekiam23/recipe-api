@@ -61,6 +61,10 @@ class Recipe < ApplicationRecord
     url_for(self.image)
   end
 
+  def image_url
+    image.service_url if image.attached?
+  end
+
   private
 
   def diet_included(diet)
