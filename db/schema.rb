@@ -83,11 +83,10 @@ ActiveRecord::Schema.define(version: 2021_05_07_144701) do
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "favoritable_type"
-    t.bigint "favoritable_id"
+    t.bigint "recipe_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable_type_and_favoritable_id"
+    t.index ["recipe_id"], name: "index_favorites_on_recipe_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -151,6 +150,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_144701) do
   add_foreign_key "diet_recipes", "recipes"
   add_foreign_key "dish_type_recipes", "dish_types"
   add_foreign_key "dish_type_recipes", "recipes"
+  add_foreign_key "favorites", "recipes"
   add_foreign_key "favorites", "users"
   add_foreign_key "occasion_recipes", "occasions"
   add_foreign_key "occasion_recipes", "recipes"
