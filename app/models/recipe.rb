@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: recipes
+#
+#  id           :bigint           not null, primary key
+#  title        :string
+#  servings     :integer
+#  summary      :text
+#  instructions :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :integer
+#
 class Recipe < ApplicationRecord
   include PgSearch::Model
   pg_search_scope :search,
