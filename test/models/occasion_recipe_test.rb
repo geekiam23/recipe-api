@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: occasion_recipes
+#
+#  id          :bigint           not null, primary key
+#  occasion_id :bigint           not null
+#  recipe_id   :bigint           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 require 'test_helper'
 
 class OccasionRecipeTest < ActiveSupport::TestCase

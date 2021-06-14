@@ -15,6 +15,34 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "analyzed_instructions", force: :cascade do |t|
+    t.bigint "step_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["step_id"], name: "index_analyzed_instructions_on_step_id"
+  end
+
   create_table "cuisine_recipes", force: :cascade do |t|
     t.bigint "cuisine_id", null: false
     t.bigint "recipe_id", null: false
@@ -70,6 +98,37 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "equipment", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipe_id"], name: "index_favorites_on_recipe_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "aisle"
+    t.string "consistency"
+    t.string "name"
+    t.string "name_clean"
+    t.string "original"
+    t.string "original_string"
+    t.string "original_clean"
+    t.integer "amount"
+    t.string "unit"
+    t.text "meta", default: [], array: true
+    t.text "meta_information", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "occasion_recipes", force: :cascade do |t|
     t.bigint "occasion_id", null: false
     t.bigint "recipe_id", null: false
@@ -96,6 +155,17 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
     t.integer "spoonacular_id"
   end
 
+  create_table "steps", force: :cascade do |t|
+    t.string "description"
+    t.integer "number"
+    t.bigint "ingredient_id", null: false
+    t.bigint "equipment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["equipment_id"], name: "index_steps_on_equipment_id"
+    t.index ["ingredient_id"], name: "index_steps_on_ingredient_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -108,13 +178,18 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "analyzed_instructions", "steps"
   add_foreign_key "cuisine_recipes", "cuisines"
   add_foreign_key "cuisine_recipes", "recipes"
   add_foreign_key "diet_recipes", "diets"
   add_foreign_key "diet_recipes", "recipes"
   add_foreign_key "dish_type_recipes", "dish_types"
   add_foreign_key "dish_type_recipes", "recipes"
+  add_foreign_key "favorites", "recipes"
   add_foreign_key "favorites", "users"
   add_foreign_key "occasion_recipes", "occasions"
   add_foreign_key "occasion_recipes", "recipes"
+  add_foreign_key "steps", "equipment"
+  add_foreign_key "steps", "ingredients"
 end
