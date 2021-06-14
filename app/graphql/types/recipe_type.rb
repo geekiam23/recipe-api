@@ -12,5 +12,6 @@ module Types
     field :occasions, [OccasionType], null: true
     field :dish_types, [DishType], null: true
     field :cuisines, [CuisineType], null: true
+    field :image_url, String, null: true
   end
 end
