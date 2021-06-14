@@ -24,6 +24,8 @@ gem 'pg'
 gem 'pg_search'
 gem 'rack-mini-profiler', require: false
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'rack-cors'
+gem 'jwt'
 gem 'image_processing'
 gem "aws-sdk-s3", require: false
 
