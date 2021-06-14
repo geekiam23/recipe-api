@@ -12,6 +12,6 @@
 #  updated_at       :datetime         not null
 #
 class Favorite < ApplicationRecord
+  belongs_to :favoritable, polymorphic: true, optional: true
   belongs_to :user
-  belongs_to :recipe
 end

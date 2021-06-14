@@ -45,7 +45,8 @@ class Recipe < ApplicationRecord
 
   has_many :occasion_recipes, dependent: :destroy
   has_many :occasions, through: :occasion_recipes
-
+  
+  has_many :favorites, as: :favoritable, dependent: :destroy  
   has_many :favorites, dependent: :destroy
 
   validate :acceptable_image
@@ -70,6 +71,23 @@ class Recipe < ApplicationRecord
     diet_included('whole 30')
   end
 
+  def self.get_recipe_by_spoonacular_id(user_id, spoonacular_id)
+    recipe = Recipe.find_by(spoonacular_id: spoonacular_id)
+
+    unless recipe.present?
+      spoon_recipe = Spoonacular::Recipe.new.info(spoonacular_id).to_dot
+      recipe = Recipe.create do |r|
+        r.spoonacular_id = spoonacular_id
+        r.title = spoon_recipe.title
+        r.summary = spoon_recipe.summary
+        r.servings = spoon_recipe.servings
+        r.instructions = spoon_recipe.instructions
+        r.user_id = user_id
+      end
+    end
+    recipe
+  end
+  
   def get_image_url
     url_for(self.image)
   end

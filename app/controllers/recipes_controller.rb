@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
 class RecipesController < ApplicationController
-  before_action :require_sign_in, except: %i[index show]
+  before_action :require_login
 
   def index
-    @recipes = Recipe.includes(:cuisines, :diets, :dish_types, :occasions)
+    @recipes = Recipe.includes(:cuisines, :diets, :dish_types, :occasions).where(user_id: current_user.id)
+    # TODO: Refactor to include favs instead of just created
+    # @recipes = current_user.favorites.where(favoritable_type: "Recipe").includes(:cuisines, :diets, :dish_types, :occasions)
   end
 
   def search
     @recipes = Recipe.includes(:cuisines, :diets, :dish_types, :occasions).search(params[:search])
   end
+
+  # add spoon to search feature
 
   def new
     @recipe = current_user.recipes.build
@@ -28,6 +32,8 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    @image_ingredient_base = "https://spoonacular.com/cdn/ingredients_100x100/"
+    @image_equipment_base = "https://spoonacular.com/cdn/equipment_100x100/"
   end
 
   def edit
@@ -60,7 +66,7 @@ class RecipesController < ApplicationController
   end
 
   def random
-    @recipes = Spoonacular::Recipe.new.random(recipe_random_params).to_dot
+    @recipes = Spoonacular::Recipe.new.random(recipe_random_params).map{|s| s.to_dot }
     @image_ingredient_base = 'https://spoonacular.com/cdn/ingredients_100x100/'
     @image_equipment_base = 'https://spoonacular.com/cdn/equipment_100x100/'
 
@@ -68,10 +74,23 @@ class RecipesController < ApplicationController
     render 'recipes/index_spoon', object: @recipes
   end
 
+  def random_show
+    @recipe = Spoonacular::Recipe.new.info(params[:id]).to_dot
+    @image_ingredient_base = "https://spoonacular.com/cdn/ingredients_100x100/"
+    @image_equipment_base = "https://spoonacular.com/cdn/equipment_100x100/"
+    render 'show'
+  end
+
   private
 
+  def require_login
+    unless current_user
+      redirect_to new_user_session_path
+    end
+  end
+
   def recipe_random_params
-    params.require(:random).permit(:number, tags: [])
+    params.require(:random).permit(:id, :number, tags: [])
   end
 
   def recipe_params

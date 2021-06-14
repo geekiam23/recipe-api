@@ -4,27 +4,22 @@ class FavoritesController < ApplicationController
   before_action :require_sign_in
 
   def create
-    recipe = Recipe.find(params[:recipe_id])
-    favorite = current_user.favorites.build(recipe: recipe)
+    @recipe = current_user.create_favorite_for(params[:recipe_id])
+    flash[:notice] = "Recipe favorited."
 
-    if favorite.save
-      flash[:notice] = 'Recipe favorited.'
-    else
-      flash[:alert] = 'Favoriting failed.'
-    end
-
-    redirect_to recipe
+    redirect_to @recipe
   end
 
   def destroy
-    recipe = Recipe.find(params[:recipe_id])
-    favorite = current_user.favorites.find_by(id: params[:id])
+    @recipe = Recipe.find(params[:recipe_id])
+    @favorite = current_user.favorites.find_by(favoritable_id: params[:recipe_id])
 
-    if favorite&.destroy
-      flash[:notice] = 'Recipe unfavorited.'
+    if @favorite.destroy
+      flash[:notice] = "Recipe unfavorited."
     else
       flash[:alert] = 'Unfavoriting failed.'
     end
-    redirect_to recipe
+    
+    redirect_to @recipe
   end
 end
