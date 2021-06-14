@@ -124,6 +124,15 @@ end
   )
 end
 
+# Create Ingredients
+50.times do
+  Ingredient.create!(
+    name: Faker::Food.dish,
+    aisle: Faker::Food.description,
+    consistency: Faker::Food.description
+  )
+end
+
 25.times do
   Favorite.create!(
     user_id: users.ids.sample,
@@ -166,3 +175,4 @@ puts "#{DishType.count} dish types created"
 puts "#{Diet.count} diets created"
 puts "#{Occasion.count} occasions created"
 puts "#{Recipe.count} recipes created"
+puts "#{Ingredient.count} ingredients created"
