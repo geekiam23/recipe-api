@@ -88,16 +88,6 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "favoritable_type"
-    t.bigint "favoritable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["favoritable_type", "favoritable_id"], name: "index_favorites_on_favoritable_type_and_favoritable_id"
-    t.index ["user_id"], name: "index_favorites_on_user_id"
-  end
-
   create_table "equipment", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
