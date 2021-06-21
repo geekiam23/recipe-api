@@ -17,20 +17,38 @@ module Types
       argument :number, String, required: false
       argument :tags, [String], required: false
     end
-  
+    
     def randomRecipes(number: nil, tags: nil)
       params = { number: number, tags: tags}
       Spoonacular::Recipe.new.random(params)
-      # byebug
     end
-
-    # field :currentUserFavRecipes, [RecipeType], null: true do
-    #   description "Get current user favorite recipes"
-    # end
+    
+    field :getRecipe, RecipeType, null: true do
+      description "Get recipe info"
+      argument :id, String, required: true
+    end
   
-    # def currentUserFavRecipes
-    #   current_user.favorites
-    # end
-
+    def getRecipe(input)
+      Recipe.find(input[:id])
+    end
+    
+    # TODO: Change to save recipe in db when looking up
+    field :getRandomRecipe, RandomRecipeType, null: true do
+      description "Get random recipe info"
+      argument :id, String, required: true
+    end
+  
+    def getRandomRecipe(input)
+      Spoonacular::Recipe.new.info(input[:id])
+    end
+    
+    field :getUser, UserType, null: true do
+      description "Get current user info"
+      argument :id, String, required: true
+    end
+  
+    def getUser(input)
+      User.find(input[:id])
+    end
   end
 end
