@@ -120,7 +120,8 @@ end
     summary: Faker::Food.description,
     instructions: Faker::Hacker.say_something_smart,
     servings: Faker::Number.unique.between(from: 1, to: 51),
-    user_id: users.ids.sample
+    user_id: users.ids.sample,
+    # image: Faker::LoremPixel.image(size: "400x400", is_gray: false, category: 'food')
   )
 end
 
@@ -135,13 +136,13 @@ recipe_ids = Recipe.all.map { |r| r['id']}
   )
 end
 
-25.times do
-  Favorite.create!(
-    user_id: 1,
-    favoritable_type: Recipe,
-    favoritable_id: recipe_ids.sample
-  )
-end
+# 25.times do
+#   Favorite.create!(
+#     user_id: 1,
+#     favoritable_type: Recipe,
+#     favoritable_id: recipe_ids.sample
+#   )
+# end
 
 50.times do
   CuisineRecipe.create!(
