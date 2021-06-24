@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_21_212533) do
+ActiveRecord::Schema.define(version: 2021_06_24_172039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,35 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "meal_days", force: :cascade do |t|
+    t.date "day"
+    t.bigint "meal_plan_id"
+    t.bigint "recipe_id"
+    t.bigint "meal_type_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["meal_plan_id"], name: "index_meal_days_on_meal_plan_id"
+    t.index ["meal_type_id"], name: "index_meal_days_on_meal_type_id"
+    t.index ["recipe_id"], name: "index_meal_days_on_recipe_id"
+  end
+
+  create_table "meal_plans", force: :cascade do |t|
+    t.bigint "meal_type_id"
+    t.bigint "recipe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["meal_type_id"], name: "index_meal_plans_on_meal_type_id"
+    t.index ["recipe_id"], name: "index_meal_plans_on_recipe_id"
+  end
+
+  create_table "meal_types", force: :cascade do |t|
+    t.string "name"
+    t.bigint "recipe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipe_id"], name: "index_meal_types_on_recipe_id"
+  end
+
   create_table "occasion_recipes", force: :cascade do |t|
     t.bigint "occasion_id", null: false
     t.bigint "recipe_id", null: false
@@ -165,6 +194,7 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -178,6 +208,12 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
   add_foreign_key "dish_type_recipes", "dish_types"
   add_foreign_key "dish_type_recipes", "recipes"
   add_foreign_key "favorites", "users"
+  add_foreign_key "meal_days", "meal_plans"
+  add_foreign_key "meal_days", "meal_types"
+  add_foreign_key "meal_days", "recipes"
+  add_foreign_key "meal_plans", "meal_types"
+  add_foreign_key "meal_plans", "recipes"
+  add_foreign_key "meal_types", "recipes"
   add_foreign_key "occasion_recipes", "occasions"
   add_foreign_key "occasion_recipes", "recipes"
   add_foreign_key "steps", "equipment"
