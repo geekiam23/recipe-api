@@ -44,11 +44,11 @@ module Types
     
     field :getUser, UserType, null: true do
       description "Get current user info"
-      argument :id, String, required: true
+      argument :token, String, required: true
     end
   
     def getUser(input)
-      User.find(input[:id])
+      User.find_by(token: input[:token])
     end
   end
 end

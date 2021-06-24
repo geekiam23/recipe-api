@@ -13,7 +13,7 @@ module Mutations
       user = User.find_for_database_authentication(email: input[:email])
 
       if user && user.valid_password?(input[:password])
-        context[:current_user] = user
+        user.regenerate_token if user.token.nil?
 
         {
           user: user,

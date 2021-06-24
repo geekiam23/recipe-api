@@ -23,8 +23,10 @@ class User < ApplicationRecord
   has_many :recipes
   has_many :favorites, dependent: :destroy
 
+  has_secure_token
+
   def generate_jwt
-    JWT.encode({id: id, exp: 60.days.from_now.to_i}, Rails.application.secrets.secret_key_base)
+    JWT.encode({token: token, exp: 60.days.from_now.to_i}, Rails.application.secrets.secret_key_base)
   end
 
   def favorite_for(recipe)

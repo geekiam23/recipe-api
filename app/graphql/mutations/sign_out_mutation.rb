@@ -3,20 +3,15 @@ module Mutations
   class SignOutMutation < Mutations::BaseMutation
     field :user, Types::UserType, null: false
 
-    def resolve
-      authorize_user
-
-      if current_user.present?
-        success = current_user.reset_authentication_token!
+    def resolve(input)
+      @user = User.find_by(token: input[:token])
+      @user.update_column(token: nil)
 
         Mutations::MutationResult.call(
-          obj: { user: current_user },
+          obj: { user: @user },
           success: success,
-          errors: current_user.errors
+          errors: @user.errors
         )
-      else
-        GraphQL::ExecutionError.new("User not signed in")
-      end
     end
   end
 end
