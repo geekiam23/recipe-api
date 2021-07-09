@@ -1,5 +1,4 @@
 class MealDay < ApplicationRecord
-	has_many :meal_plans
-	has_many :recipes
-	has_many :meal_types
+	has_many :recipes, through: :meal_plans
+	has_many :meal_types, through: :meal_plans
 end
