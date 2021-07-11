@@ -122,31 +122,23 @@ ActiveRecord::Schema.define(version: 2021_06_24_172039) do
 
   create_table "meal_days", force: :cascade do |t|
     t.date "day"
-    t.bigint "meal_plan_id"
-    t.bigint "recipe_id"
-    t.bigint "meal_type_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["meal_plan_id"], name: "index_meal_days_on_meal_plan_id"
-    t.index ["meal_type_id"], name: "index_meal_days_on_meal_type_id"
-    t.index ["recipe_id"], name: "index_meal_days_on_recipe_id"
   end
 
   create_table "meal_plans", force: :cascade do |t|
-    t.bigint "meal_type_id"
-    t.bigint "recipe_id"
+    t.integer "meal_day_id"
+    t.integer "meal_type_id"
+    t.integer "recipe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["meal_type_id"], name: "index_meal_plans_on_meal_type_id"
-    t.index ["recipe_id"], name: "index_meal_plans_on_recipe_id"
   end
 
   create_table "meal_types", force: :cascade do |t|
     t.string "name"
-    t.bigint "recipe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["recipe_id"], name: "index_meal_types_on_recipe_id"
   end
 
   create_table "occasion_recipes", force: :cascade do |t|
@@ -208,12 +200,6 @@ ActiveRecord::Schema.define(version: 2021_06_24_172039) do
   add_foreign_key "dish_type_recipes", "dish_types"
   add_foreign_key "dish_type_recipes", "recipes"
   add_foreign_key "favorites", "users"
-  add_foreign_key "meal_days", "meal_plans"
-  add_foreign_key "meal_days", "meal_types"
-  add_foreign_key "meal_days", "recipes"
-  add_foreign_key "meal_plans", "meal_types"
-  add_foreign_key "meal_plans", "recipes"
-  add_foreign_key "meal_types", "recipes"
   add_foreign_key "occasion_recipes", "occasions"
   add_foreign_key "occasion_recipes", "recipes"
   add_foreign_key "steps", "equipment"

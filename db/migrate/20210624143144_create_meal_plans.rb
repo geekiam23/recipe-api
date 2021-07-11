@@ -1,9 +1,9 @@
 class CreateMealPlans < ActiveRecord::Migration[6.0]
   def change
     create_table :meal_plans do |t|
-      t.belongs_to :meal_day, null: false, foreign_key: true
-      t.belongs_to :meal_type, null: true, foreign_key: true
-      t.belongs_to :recipe, null: true, foreign_key: true
+      t.integer :meal_day_id
+      t.integer :meal_type_id
+      t.integer :recipe_id
 
       t.timestamps
     end
