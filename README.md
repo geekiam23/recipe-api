@@ -1,6 +1,6 @@
 # Recipe App/Api
 
-### SaaS Wiki Collaboration Tool
+### Recipe Organizer Tool
 
 Users can create, edit and on recipes.
 
