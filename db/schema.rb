@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_21_212533) do
+ActiveRecord::Schema.define(version: 2021_06_24_172039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,27 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "meal_days", force: :cascade do |t|
+    t.date "day"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "meal_plans", force: :cascade do |t|
+    t.integer "meal_day_id"
+    t.integer "meal_type_id"
+    t.integer "recipe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "meal_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "occasion_recipes", force: :cascade do |t|
     t.bigint "occasion_id", null: false
     t.bigint "recipe_id", null: false
@@ -165,6 +186,7 @@ ActiveRecord::Schema.define(version: 2021_05_21_212533) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
