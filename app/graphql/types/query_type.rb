@@ -1,6 +1,5 @@
 module Types
   class QueryType < Types::BaseObject
-    # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
@@ -32,14 +31,14 @@ module Types
       Recipe.find(input[:id])
     end
     
-    # TODO: Change to save recipe in db when looking up
     field :getRandomRecipe, RandomRecipeType, null: true do
-      description "Get random recipe info"
+      description "Get spoonacular recipe info"
       argument :id, String, required: true
+      argument :user_id, String, required: true
     end
   
     def getRandomRecipe(input)
-      Spoonacular::Recipe.new.info(input[:id])
+      Recipe.get_recipe_by_spoonacular_id(input[:userId], input[:id])
     end
     
     field :getUser, UserType, null: true do
