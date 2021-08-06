@@ -36,6 +36,9 @@ group :development, :test do
   gem 'graphiql-rails'
   gem 'rubocop', '~> 1.13', require: false
   gem 'rubocop-rails', require: false
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+  gem 'database_cleaner-active_record'
 end
 
 group :development do
