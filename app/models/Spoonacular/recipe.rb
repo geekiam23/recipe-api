@@ -3,7 +3,7 @@
 module Spoonacular
   class Recipe < Base
     def base_url
-      "#{super}/recipes/"
+      "#{super}recipes"
     end
 
     def find(params = {})
@@ -22,7 +22,7 @@ module Spoonacular
     end
 
     def info(id)
-      endpoint = "#{id}/information"
+      endpoint = "/#{id}/"
       params = { includeNutrition: false }
       get(endpoint, params)
     end
@@ -36,13 +36,13 @@ module Spoonacular
     def random(params = {})
       tags = params['tags'].reject(&:empty?) if params['tags'] 
       number = params['number']
-      endpoint = "random"
+      endpoint = "/random"
       params = { :tags => tags, :number => number }
       get(endpoint, params)["recipes"]
     end
 
     def similar(id)
-      endpoint = "#{id}/similar"
+      endpoint = "/#{id}/similar"
       params = { number: 2 }
       recipes = get(endpoint, params)
       recipe_ids = recipes.map { |recipe| recipe['id'] }

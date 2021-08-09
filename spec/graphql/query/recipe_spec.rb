@@ -1,10 +1,10 @@
 require 'rails_helper'
-require_relative '../support'
+require_relative '../../support/graphql_helpers.rb'
 
 RSpec.describe 'query recipe', type: :graphql do
   let(:query) do
     <<~GQL
-      query getRecipe($id: String!) {
+      query getRecipe($id: ID!) {
         getRecipe(id: $id) {
           id
           title

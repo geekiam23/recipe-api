@@ -24,21 +24,21 @@ module Types
     
     field :getRecipe, RecipeType, null: true do
       description "Get recipe info"
-      argument :id, String, required: true
+      argument :id, ID, required: true
     end
   
     def getRecipe(input)
       Recipe.find(input[:id])
     end
     
-    field :getRandomRecipe, RandomRecipeType, null: true do
+    field :getSpoonacularRecipe, RandomRecipeType, null: true do
       description "Get spoonacular recipe info"
-      argument :id, String, required: true
-      argument :user_id, String, required: true
+      argument :spoonacular_id, ID, required: true
+      argument :user_id, ID, required: true
     end
   
-    def getRandomRecipe(input)
-      Recipe.get_recipe_by_spoonacular_id(input[:userId], input[:id])
+    def getSpoonacularRecipe(input)
+      Recipe.get_recipe_by_spoonacular_id(input[:user_id], input[:spoonacular_id])
     end
     
     field :getUser, UserType, null: true do
