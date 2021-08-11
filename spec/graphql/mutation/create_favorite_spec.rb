@@ -23,7 +23,7 @@ RSpec.describe 'Mutations createFavoriteMutation', type: :graphql do
   end
 
   let(:recipe) do
-    create(:recipe, user_id: user.id)
+    create(:recipe, id: 2, user_id: user.id, spoonacular_id: 2)
   end
 
 
