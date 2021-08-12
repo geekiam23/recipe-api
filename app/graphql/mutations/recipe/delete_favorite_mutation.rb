@@ -3,7 +3,7 @@
 module Mutations
   module Recipe
     class DeleteFavoriteMutation  < Mutations::BaseMutation
-      description 'User creates an account'
+      description 'User unfavorites a recipe'
       argument :user_id, ID, required: true
       argument :recipe_id, ID, required: true
 
