@@ -34,6 +34,40 @@ module Types
       Recipe.find(input[:id])
     end
     
+    field :getMealDays, [MealDayType], null: true do
+      description "Get all meal days"
+    end
+  
+    def getMealDays
+      MealDay.all
+    end
+    
+    field :getMealDay, MealDayType, null: true do
+      description "Get a meal day"
+      argument :id, ID, required: true
+    end
+  
+    def getMealDay(input)
+      MealDay.find(input[:id])
+    end
+    
+    field :getMealPlans, [MealPlanType], null: true do
+      description "Get all meal plans"
+    end
+  
+    def getMealPlans
+      MealPlan.all
+    end
+    
+    field :getMealPlan, MealPlanType, null: true do
+      description "Get a meal plan"
+      argument :id, ID, required: true
+    end
+  
+    def getMealPlan(input)
+      MealPlan.find(input[:id])
+    end
+    
     field :getSpoonacularRecipe, RandomRecipeType, null: true do
       description "Get spoonacular recipe info"
       argument :spoonacular_id, ID, required: true
