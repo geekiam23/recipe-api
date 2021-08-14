@@ -17,9 +17,12 @@ module Types
       argument :tags, [String], required: false
     end
     
-    def randomRecipes(number: nil, tags: nil)
+    def randomRecipes(number: 10, tags: nil, user_id: 1)
       params = { number: number, tags: tags}
-      Spoonacular::Recipe.new.random(params)
+      spoon_recipes = Spoonacular::Recipe.new.random(params)
+      spoon_recipes.map do |r|
+        Recipe.get_recipe_by_spoonacular_id(user_id, r['id'])
+      end
     end
     
     field :getRecipe, RecipeType, null: true do

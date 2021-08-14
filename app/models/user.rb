@@ -23,6 +23,7 @@ class User < ApplicationRecord
 
   has_many :recipes
   has_many :favorites, dependent: :destroy
+  has_many :meal_days  
 
   has_secure_token
   before_save      { self.email = email.downcase }
