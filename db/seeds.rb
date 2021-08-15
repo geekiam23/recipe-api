@@ -68,12 +68,27 @@ ocassions = %w[
   summer
 ]
 
-User.create!(
+puts 'Creating User'
+user = User.create!(
   email: 'test@gmail.com',
   password: 'password',
   password_confirmation: 'password',
   created_at: Faker::Date.between(from: 2.years.ago, to: Date.today)
 )
+
+5.times do
+  id = Spoonacular::Recipe.new.random.first['id']
+  recipe = Recipe.get_recipe_by_spoonacular_id(user.id, id)
+  puts "Created #{recipe.title}"
+end
+
+puts 'Creating Meal Day'
+meal_day = user.meal_days.create(day: Date.today)
+puts 'Creating Meal Type'
+meal_type = MealType.create(name: 'Breakfast')
+puts 'Creating Meal Plans'
+meal_plan = meal_day.meal_plans.create(meal_type_id: meal_type.id, recipe_ids: Recipe.pluck(:id).first(2))
+meal_plan = meal_day.meal_plans.create(meal_type_id: meal_type.id, recipe_ids: Recipe.pluck(:id).last(2))
 
 # Create Users
 10.times do
