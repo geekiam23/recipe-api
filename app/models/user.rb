@@ -12,6 +12,7 @@
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  token                  :string
 #
 class User < ApplicationRecord
   devise  :database_authenticatable,
@@ -22,6 +23,7 @@ class User < ApplicationRecord
 
   has_many :recipes
   has_many :favorites, dependent: :destroy
+  has_many :meal_days  
 
   has_secure_token
   before_save      { self.email = email.downcase }
