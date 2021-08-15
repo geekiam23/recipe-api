@@ -12,6 +12,7 @@
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  token                  :string
 #
 class User < ApplicationRecord
   devise  :database_authenticatable,
@@ -22,8 +23,18 @@ class User < ApplicationRecord
 
   has_many :recipes
   has_many :favorites, dependent: :destroy
+  has_many :meal_days  
 
   has_secure_token
+  before_save      { self.email = email.downcase }
+
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, length: { minimum: 6 }, allow_blank: true
+  validates :email,
+              presence: true,
+              uniqueness: { case_sensitive: false },
+              length: { minimum: 3, maximum: 254 }
+
 
   def generate_jwt
     JWT.encode({token: token, exp: 60.days.from_now.to_i}, Rails.application.secrets.secret_key_base)

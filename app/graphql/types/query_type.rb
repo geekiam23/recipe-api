@@ -1,6 +1,5 @@
 module Types
   class QueryType < Types::BaseObject
-    # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
@@ -18,28 +17,65 @@ module Types
       argument :tags, [String], required: false
     end
     
-    def randomRecipes(number: nil, tags: nil)
+    def randomRecipes(number: 10, tags: nil, user_id: 1)
       params = { number: number, tags: tags}
-      Spoonacular::Recipe.new.random(params)
+      spoon_recipes = Spoonacular::Recipe.new.random(params)
+      spoon_recipes.map do |r|
+        Recipe.get_recipe_by_spoonacular_id(user_id, r['id'])
+      end
     end
     
     field :getRecipe, RecipeType, null: true do
       description "Get recipe info"
-      argument :id, String, required: true
+      argument :id, ID, required: true
     end
   
     def getRecipe(input)
       Recipe.find(input[:id])
     end
     
-    # TODO: Change to save recipe in db when looking up
-    field :getRandomRecipe, RandomRecipeType, null: true do
-      description "Get random recipe info"
-      argument :id, String, required: true
+    field :getMealDays, [MealDayType], null: true do
+      description "Get all meal days"
     end
   
-    def getRandomRecipe(input)
-      Spoonacular::Recipe.new.info(input[:id])
+    def getMealDays
+      MealDay.all
+    end
+    
+    field :getMealDay, MealDayType, null: true do
+      description "Get a meal day"
+      argument :id, ID, required: true
+    end
+  
+    def getMealDay(input)
+      MealDay.find(input[:id])
+    end
+    
+    field :getMealPlans, [MealPlanType], null: true do
+      description "Get all meal plans"
+    end
+  
+    def getMealPlans
+      MealPlan.all
+    end
+    
+    field :getMealPlan, MealPlanType, null: true do
+      description "Get a meal plan"
+      argument :id, ID, required: true
+    end
+  
+    def getMealPlan(input)
+      MealPlan.find(input[:id])
+    end
+    
+    field :getSpoonacularRecipe, RandomRecipeType, null: true do
+      description "Get spoonacular recipe info"
+      argument :spoonacular_id, ID, required: true
+      argument :user_id, ID, required: true
+    end
+  
+    def getSpoonacularRecipe(input)
+      Recipe.get_recipe_by_spoonacular_id(input[:user_id], input[:spoonacular_id])
     end
     
     field :getUser, UserType, null: true do
