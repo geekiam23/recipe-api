@@ -50,6 +50,9 @@ class Recipe < ApplicationRecord
   has_many :favorites, as: :favoritable, dependent: :destroy  
   has_many :favorites, dependent: :destroy
 
+  has_many :meal_plan_recipes, dependent: :destroy
+  has_many :meal_plans, through: :meal_plan_recipes
+
   validate :acceptable_image
 
   def dairy_free

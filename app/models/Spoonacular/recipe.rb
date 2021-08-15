@@ -22,7 +22,7 @@ module Spoonacular
     end
 
     def info(id)
-      endpoint = "/#{id}/"
+      endpoint = "/#{id}/information"
       params = { includeNutrition: false }
       get(endpoint, params)
     end
@@ -34,8 +34,8 @@ module Spoonacular
     end
 
     def random(params = {})
-      tags = params['tags'].reject(&:empty?) if params['tags'] 
-      number = params['number']
+      tags = params[:tags].reject(&:empty?) if params['tags'] 
+      number = params[:number]
       endpoint = "/random"
       params = { :tags => tags, :number => number }
       get(endpoint, params)["recipes"]

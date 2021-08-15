@@ -12,5 +12,7 @@
 class MealPlan < ApplicationRecord
 	belongs_to :meal_day
 	belongs_to :meal_type
-	belongs_to :recipes
+	
+	has_many :meal_plan_recipes, dependent: :destroy
+	has_many :recipes, through: :meal_plan_recipes
 end
