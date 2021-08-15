@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../support'
+require_relative '../../support/graphql_helpers.rb'
 
 RSpec.describe Mutations::Auth::SignOutMutation, type: :graphql do
   let(:mutation) do

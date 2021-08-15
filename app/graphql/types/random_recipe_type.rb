@@ -10,7 +10,7 @@ module Types
     field :healthScore, String, null: true
     field :weightWatcherSmartPoints, String, null: true
     field :readyInMinutes, String, null: true
-    # field :instructions, String, null: true
+    field :instructions, String, null: true
     field :diets, [String], null: true
     field :occasions, [String], null: true
     field :dish_types, [String], null: true

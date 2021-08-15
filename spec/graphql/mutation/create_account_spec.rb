@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../support'
+require_relative '../../support/graphql_helpers.rb'
 
 RSpec.describe 'Mutations createAccountMutation', type: :graphql do
   let(:mutation) do

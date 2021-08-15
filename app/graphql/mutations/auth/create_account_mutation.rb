@@ -6,7 +6,7 @@ module Mutations
       description 'User creates an account'
       argument :email, String, required: true
       argument :password, String, required: true
-      argument :passwordConfirmation, String, required: true
+      argument :password_confirmation, String, required: true
 
       field :token, String, null: true
       field :user, Types::UserType, null: true
@@ -14,7 +14,7 @@ module Mutations
       def resolve(input)
         user = User.new({:email => input[:email],
                             :password => input[:password],
-                            :password_confirmation => input[:passwordConfirmation]
+                            :password_confirmation => input[:password_confirmation]
                             })
 
         if user.save
