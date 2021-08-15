@@ -17,9 +17,12 @@ module Types
       argument :tags, [String], required: false
     end
     
-    def randomRecipes(number: nil, tags: nil)
+    def randomRecipes(number: 10, tags: nil, user_id: 1)
       params = { number: number, tags: tags}
-      Spoonacular::Recipe.new.random(params)
+      spoon_recipes = Spoonacular::Recipe.new.random(params)
+      spoon_recipes.map do |r|
+        Recipe.get_recipe_by_spoonacular_id(user_id, r['id'])
+      end
     end
     
     field :getRecipe, RecipeType, null: true do
@@ -29,6 +32,40 @@ module Types
   
     def getRecipe(input)
       Recipe.find(input[:id])
+    end
+    
+    field :getMealDays, [MealDayType], null: true do
+      description "Get all meal days"
+    end
+  
+    def getMealDays
+      MealDay.all
+    end
+    
+    field :getMealDay, MealDayType, null: true do
+      description "Get a meal day"
+      argument :id, ID, required: true
+    end
+  
+    def getMealDay(input)
+      MealDay.find(input[:id])
+    end
+    
+    field :getMealPlans, [MealPlanType], null: true do
+      description "Get all meal plans"
+    end
+  
+    def getMealPlans
+      MealPlan.all
+    end
+    
+    field :getMealPlan, MealPlanType, null: true do
+      description "Get a meal plan"
+      argument :id, ID, required: true
+    end
+  
+    def getMealPlan(input)
+      MealPlan.find(input[:id])
     end
     
     field :getSpoonacularRecipe, RandomRecipeType, null: true do
