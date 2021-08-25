@@ -19,7 +19,8 @@ class User < ApplicationRecord
           :registerable,
           :recoverable,
           :rememberable,
-          :validatable
+          :validatable,
+          :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
 
   has_many :recipes
   has_many :favorites, dependent: :destroy

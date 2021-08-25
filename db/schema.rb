@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_213950) do
+ActiveRecord::Schema.define(version: 2021_08_21_022802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 2021_08_13_213950) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "aisles", force: :cascade do |t|
+    t.string "name"
+    t.integer "number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "analyzed_instructions", force: :cascade do |t|
@@ -104,8 +111,28 @@ ActiveRecord::Schema.define(version: 2021_08_13_213950) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "ingredient_aisles", force: :cascade do |t|
+    t.integer "ingredient_id"
+    t.integer "aisle_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ingredient_recipes", force: :cascade do |t|
+    t.integer "ingredient_id"
+    t.integer "recipe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ingredient_units", force: :cascade do |t|
+    t.integer "ingredient_id"
+    t.integer "unit_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "ingredients", force: :cascade do |t|
-    t.string "aisle"
     t.string "consistency"
     t.string "name"
     t.string "name_clean"
@@ -113,11 +140,18 @@ ActiveRecord::Schema.define(version: 2021_08_13_213950) do
     t.string "original_string"
     t.string "original_clean"
     t.integer "amount"
-    t.string "unit"
     t.text "meta", default: [], array: true
     t.text "meta_information", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "jwt_blacklists", force: :cascade do |t|
+    t.string "jti"
+    t.datetime "exp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["jti"], name: "index_jwt_blacklists_on_jti"
   end
 
   create_table "meal_days", force: :cascade do |t|
@@ -182,6 +216,13 @@ ActiveRecord::Schema.define(version: 2021_08_13_213950) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["equipment_id"], name: "index_steps_on_equipment_id"
     t.index ["ingredient_id"], name: "index_steps_on_ingredient_id"
+  end
+
+  create_table "units", force: :cascade do |t|
+    t.string "unit_long"
+    t.string "unit_short"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

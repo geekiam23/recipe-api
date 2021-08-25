@@ -16,6 +16,7 @@ gem 'webpacker', '~> 4.0'
 gem 'sprockets', '~> 3.7.2'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
+gem 'devise-jwt'
 gem 'excon'
 gem 'faker'
 gem 'graphql'

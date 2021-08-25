@@ -106,7 +106,20 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-jwt (0.8.1)
+      devise (~> 4.0)
+      warden-jwt_auth (~> 0.5)
     diff-lcs (1.4.4)
+    dry-auto_inject (0.8.0)
+      dry-container (>= 0.3.4)
+    dry-configurable (0.12.1)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.5, >= 0.5.0)
+    dry-container (0.8.0)
+      concurrent-ruby (~> 1.0)
+      dry-configurable (~> 0.1, >= 0.1.3)
+    dry-core (0.7.1)
+      concurrent-ruby (~> 1.0)
     erubi (1.10.0)
     excon (0.80.1)
     factory_bot (6.2.0)
@@ -289,6 +302,11 @@ GEM
     unicode-display_width (2.0.0)
     warden (1.2.9)
       rack (>= 2.0.9)
+    warden-jwt_auth (0.5.0)
+      dry-auto_inject (~> 0.6)
+      dry-configurable (~> 0.9)
+      jwt (~> 2.1)
+      warden (~> 1.2)
     web-console (4.1.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -320,6 +338,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   database_cleaner-active_record
   devise
+  devise-jwt
   excon
   factory_bot_rails
   faker

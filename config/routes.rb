@@ -16,8 +16,13 @@ Rails.application.routes.draw do
   # resources :favorites, only: [:create, :destroy]
   resources :recipes
   post 'recipes/random', to: 'recipes#random'
+  get '/member-data', to: 'members#show'
 
-  devise_for :users
+  devise_for :users,
+              controllers: {
+                  sessions: 'users/sessions',
+                  registrations: 'users/registrations'
+              }
   root to: 'recipes#index'
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql#execute"
